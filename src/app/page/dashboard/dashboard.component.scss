@@ -1,0 +1,42 @@
+// .spinner-container {
+//     display: flex;
+//     justify-content: center;
+//     margin-top: 3rem;
+// }
+
+// .mat-card {
+//     padding: 1rem;
+// }
+
+// .mt-4 {
+//     margin-top: 2rem;
+// }
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+.mat-card {
+    padding: 1rem;
+    // Puedes agregar sombra, bordes o fondo si deseas personalizar más:
+    // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mt-4 {
+    margin-top: 2rem;
+}
+
+// Si quisieras estilos específicos para mat-card dentro del dashboard
+:host {
+    display: block;
+
+    mat-card-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    mat-list-item {
+        font-size: 0.95rem;
+    }
+}

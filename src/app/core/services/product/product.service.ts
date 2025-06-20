@@ -30,4 +30,8 @@ export class ProductService {
   remove(id: number): Observable<Product> {
     return this.http.delete<Product>(`${this.apiUrl}/${id}`);
   }
+  buscarProducto(termino: string): Observable<Product[]> {
+  return this.http.get<Product[]>(`http://localhost:3000/product/buscar/${termino}`);
+}
+
 }

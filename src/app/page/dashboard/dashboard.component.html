@@ -1,2 +1,118 @@
 <app-header></app-header>
-<h1>Dashboard works</h1>
+<div *ngIf="cargando" class="spinner-container">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!cargando && data">
+    <mat-grid-list cols="3" rowHeight="1:1" gutterSize="16px">
+        <mat-grid-tile colspan="1">
+            <mat-card>
+                <mat-card-title>Total Productos</mat-card-title>
+                <mat-card-content>
+                    <h2>{{ data.totalProductos }}</h2>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="1">
+            <mat-card>
+                <mat-card-title>Valor del Inventario</mat-card-title>
+                <mat-card-content>
+                    <h2>{{ data.totalInventorio | currency }}</h2>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="1">
+            <mat-card>
+                <mat-card-title>Ganancia Bruta (mes)</mat-card-title>
+                <mat-card-content>
+                    <h2>{{ data.gananciaBruta | currency }}</h2>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="3" rowHeight="1:1" gutterSize="16px" class="mt-4">
+        <mat-grid-tile>
+            <mat-card>
+                <mat-card-title>Ventas</mat-card-title>
+                <mat-card-content>
+                    <p>Hoy: {{ data.ventasDia | currency }}</p>
+                    <p>Semana: {{ data.ventasSemana | currency }}</p>
+                    <p>Mes: {{ data.ventasMes | currency }}</p>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2">
+            <mat-card>
+                <mat-card-title>Productos con Bajo Stock</mat-card-title>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item *ngFor="let prod of data.productoBajoStock">
+                            {{ prod.nombre }}: {{ prod.cantidad }}/{{ prod.cantMinima }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="3" rowHeight="1:1" gutterSize="16px" class="mt-4">
+        <mat-grid-tile colspan="2">
+            <mat-card>
+                <mat-card-title>Movimientos Recientes</mat-card-title>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item *ngFor="let mov of data.movimientosRecientes">
+                            {{ mov.fecha | date:'short' }} - {{ mov.producto }} ({{ mov.tipo }}) - {{ mov.cantidad }} -
+                            {{ mov.usuario }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-card>
+                <mat-card-title>Productos sin Stock</mat-card-title>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item *ngFor="let p of data.ceroStockProducto">
+                            {{ p.nombre }} ({{ p.cantidad }})
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="2" rowHeight="1:1" gutterSize="16px" class="mt-4">
+        <mat-grid-tile>
+            <mat-card>
+                <mat-card-title>Ventas Recientes</mat-card-title>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item *ngFor="let venta of data.ventasRecientes">
+                            {{ venta.fecha_hora | date:'short' }} - {{ venta.cliente }} - {{ venta.total | currency }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+            <mat-card>
+                <mat-card-title>Top Productos Vendidos</mat-card-title>
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item *ngFor="let top of data.productosMasVendidos">
+                            {{ top.nombre }} - {{ top.totalVendido }}
+                        </mat-list-item>
+                    </mat-list>
+                </mat-card-content>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
