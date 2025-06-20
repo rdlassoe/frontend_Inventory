@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { TypePerson } from '../../models/type-person.model';
 
 @Injectable({ providedIn: 'root' })
-export class TypePersonService {
+export class TipoPersonaService {
   private apiUrl = 'http://localhost:3000/type-person';
 
   constructor(private http: HttpClient) {}
