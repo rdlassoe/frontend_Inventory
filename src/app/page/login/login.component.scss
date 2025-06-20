@@ -1,8 +1,13 @@
+/** {
+    outline: 1px solid red;
+}*/
+
 .login-container {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
-    height: 84vh;
+    height: 100vh;
     background: white;
     padding: 1rem;
 
@@ -77,4 +82,5 @@
             }
         }
     }
+
 }

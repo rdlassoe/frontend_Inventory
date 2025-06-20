@@ -1,0 +1,79 @@
+<app-header></app-header>
+
+<div>
+    <h2>Empleados</h2>
+
+    <div class="buscador-container">
+        <input type="text" placeholder="Buscar por nombre, apellido o identificación" [(ngModel)]="filtro"
+            class="buscador" />
+        <button *ngIf="filtro" class="clear-button" (click)="filtro = ''">✖</button>
+    </div>
+
+    <table class="tabla-productos">
+        <thead>
+            <tr>
+                <th>NOMBRE</th>
+                <th>APELLIDO</th>
+                <th>TIPO IDENTIFICACIÓN</th>
+                <th>IDENTIFICACIÓN</th>
+                <th>CORREO</th>
+                <th>TELÉFONO</th>
+                <th *ngIf="!isEditor" >ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let emp of empleadosPaginados">
+                <td>{{ emp.nombre }}</td>
+                <td>{{ emp.apellido }}</td>
+                <td>{{ emp.tipo_id.descripcion }}</td>
+                <td>{{ emp.numero_identificacion }}</td>
+                <td>{{ emp.email }}</td>
+                <td>{{ emp.movil }}</td>
+                <td *ngIf="!isEditor" class="action">
+                    <button (click)="editarEmpleado(emp, form)">✏️</button>
+                    <button  (click)="eliminarEmpleado(emp.idperson)">🗑️</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="paginacion">
+        <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
+        <button *ngFor="let pagina of [].constructor(totalPaginas); let i = index" (click)="cambiarPagina(i + 1)"
+            [class.activa]="paginaActual === i + 1">
+            {{ i + 1 }}
+        </button>
+        <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+    </div>
+
+    <h2>{{ empleadoEditandoId ? 'Editar Empleado' : 'Crear Empleado' }}</h2>
+
+    <form (ngSubmit)="crearEmpleado(form)" #form="ngForm">
+        <label for="nombre">Nombre</label>
+        <input type="text" [(ngModel)]="nuevoEmpleado.nombre" name="nombre" required />
+
+        <label for="apellido">Apellido</label>
+        <input type="text" [(ngModel)]="nuevoEmpleado.apellido" name="apellido" required />
+
+        <label for="tipo_id">Tipo de Identificación</label>
+        <select [(ngModel)]="nuevoEmpleado.tipo_id" name="tipo_id" required>
+            <option *ngFor="let tipo of tipoIdentificacion" [value]="tipo.idtipo_identificacion">
+                {{ tipo.descripcion }}
+            </option>
+        </select>
+
+        <label for="numero_identificacion">Número de Identificación</label>
+        <input type="text" [(ngModel)]="nuevoEmpleado.numero_identificacion" name="numero_identificacion" required />
+
+        <label for="email">Correo</label>
+        <input type="email" [(ngModel)]="nuevoEmpleado.email" name="email" />
+
+        <label for="movil">Teléfono / Móvil</label>
+        <input type="text" [(ngModel)]="nuevoEmpleado.movil" name="movil" />
+
+        <button type="submit">{{ empleadoEditandoId ? 'Actualizar' : 'Guardar' }}</button>
+        <button type="button" class="cancelar" *ngIf="empleadoEditandoId" (click)="cancelarEdicion(form)">
+            Cancelar
+        </button>
+    </form>
+</div>

@@ -1,11 +1,10 @@
 <header class="header">
-    
     <div class="header__container">
-        <button class="menu-button" (click)="toggleSidebar()">
-            ☰
-        </button>
+        <button class="menu-button" (click)="toggleSidebar()">☰</button>
         <div class="header__logo">
             <h1>INVENTARIO FERRELECTRICOS</h1>
         </div>
     </div>
 </header>
+
+<app-sidebar *ngIf="sidebarVisible" (closeSidebar)="closeSidebar()"></app-sidebar>
