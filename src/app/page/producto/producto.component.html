@@ -1,1 +1,77 @@
-<p>producto works!</p>
+<app-header></app-header>
+<div>
+<h2>Productos</h2>
+<div class="buscador-container">
+    <input type="text" placeholder="Buscar por nombre o código" [(ngModel)]="filtro" class="buscador" />
+    <button *ngIf="filtro" class="clear-button" (click)="filtro = ''">✖</button>
+</div>
+
+<table class="tabla-productos">
+    <thead>
+        <tr>
+            <th>CÓDIGO</th>
+            <th>NOMBRE</th>
+            <th>DESCRIPCION</th>
+            <th>CATEGORÍA</th>
+            <th>COSTO</th>
+            <th>PRECIO</th>
+            <th>IVA</th>
+            <th>ACCIONES</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prod of productosPaginados">
+            <td>{{ prod.codigo }}</td>
+            <td>{{ prod.nombre }}</td>
+            <td>{{ prod.descripcion }}</td>
+            <td>{{ prod.categoria.descripcion_categoria }}</td>
+            <td>{{ prod.costo }}</td>
+            <td>{{ prod.precio }}</td>
+            <td>{{ prod.iva }}%</td>
+            <td class="action">
+                <button (click)="editarProducto(prod,form)"> ✏️ </button>
+                <button  (click)="eliminarProducto(prod.idproduct)"> 🗑️ </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="paginacion">
+    <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
+
+    <button *ngFor="let pagina of [].constructor(totalPaginas); let i = index" (click)="cambiarPagina(i + 1)"
+        [class.activa]="paginaActual === i + 1">
+        {{ i + 1 }}
+    </button>
+
+    <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+</div>
+<h2>{{ productoEditandoId ? 'Editar Producto' : 'Crear Producto' }}</h2>
+<form (ngSubmit)="crearProducto(form)" #form="ngForm">
+    <label for="codigo">Codigo Producto</label>
+    <input type="text" [(ngModel)]="nuevoProducto.codigo" name="codigo producto" placeholder="Código" required />
+    <label for="nombre">Nombre</label>
+    <input type="text" [(ngModel)]="nuevoProducto.nombre" name="nombre" placeholder="Nombre" required />
+    <label for="descripcion">descripcion</label>
+    <input type="text" [(ngModel)]="nuevoProducto.descripcion" name="descripcion" placeholder="Descripción" />
+    <label for="categoria">categoria</label>
+    <select [(ngModel)]="nuevoProducto.categoria_id" name="categoria_id" required>
+        <option *ngFor="let cat of categorias" [value]="cat.idcategoria">
+            {{ cat.descripcion_categoria }}
+        </option>
+    </select>
+    <label for="cantMinima">Cantidad Minima</label>
+    <input type="number" [(ngModel)]="nuevoProducto.cantMinima" name="cantMinima" placeholder="Cantidad mínima"
+        required />
+    <label for="costo">Costo</label>
+    <input type="number" [(ngModel)]="nuevoProducto.costo" name="costo" placeholder="Costo" />
+    <label for="costo">Precio</label>
+    <input type="number" [(ngModel)]="nuevoProducto.precio" name="precio" placeholder="Precio" />
+    <label for="iva">IVA</label>
+    <select [(ngModel)]="nuevoProducto.iva" name="iva" id="iva">
+        <option [value]="0">Excento</option>
+        <option [value]="0.05">5%</option>
+        <option [value]="0.19">19%</option>
+    </select>
+    <button type="submit">{{ productoEditandoId ? 'Actualizar' : 'Guardar' }}</button>
+    <button type="button" class="cancelar" *ngIf="productoEditandoId" (click)="cancelarEdicion(form)">Cancelar</button>
+</form>

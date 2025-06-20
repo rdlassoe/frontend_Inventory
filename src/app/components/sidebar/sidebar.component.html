@@ -1,0 +1,32 @@
+<p>sidebar works!</p>
+
+<div class="overlay" (click)="onClose()"></div>
+
+<div class="sidebar">
+    <button class="close-btn" (click)="onClose()">×</button>
+    <ul>
+        <li>
+            <a (click)="onClose()" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/reportes" routerLinkActive="active">Reportes</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/ventas" routerLinkActive="active">Ventas</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/producto" routerLinkActive="active">Productos</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/cliente" routerLinkActive="active">Clientes</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/empleado" routerLinkActive="active">Empleados</a>
+        </li>
+        
+    </ul>
+    <div class="sidebar-footer">
+        <a  routerLink="/configuracion" class="footer-option">⚙ Configuración</a>
+        <button class="footer-option logout" (click)="logout()">⎋ Cerrar sesión</button>
+    </div>
+</div>

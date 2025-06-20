@@ -1,0 +1,136 @@
+// Overlay para oscurecer el fondo
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+// Contenedor de la sidebar
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 95vh;
+    background-color: #1f1f2e;
+    color: #fff;
+    padding: 20px;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+// Botón de cerrar
+.close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+// Lista del menú
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+// Ítems del menú
+.sidebar li {
+    margin-bottom: 15px;
+}
+
+// Enlaces del menú
+.sidebar a {
+    display: block;
+    color: #e0e0e0;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+// Hover: efecto sombra
+.sidebar a:hover {
+    background-color: #2e2e40;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+// Clase para el enlace activo
+.sidebar a.active {
+    background-color: #3f3f5e;
+    box-shadow: inset 4px 0 0 #00bcd4;
+    color: #ffffff;
+}
+
+// Botón de menú (por si también está en el header)
+.menu-button {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+// Footer con botones como cerrar sesión o configuración
+.sidebar-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.footer-option {
+    background: none;
+    border: none;
+    color: #ccc;
+    text-align: left;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.footer-option:hover {
+    background-color: #2e2e40;
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.logout {
+    color: #ff5252;
+}
+
+// Media queries para pantallas pequeñas (teléfonos y tablets)
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100vw;
+        height: 100vh;
+        padding: 16px;
+    }
+
+    .sidebar a,
+    .footer-option {
+        font-size: 18px;
+        padding: 14px 20px;
+    }
+
+    .close-btn {
+        font-size: 32px;
+    }
+}
