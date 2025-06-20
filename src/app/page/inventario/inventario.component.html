@@ -1,0 +1,68 @@
+<app-header></app-header>
+
+<div>
+    <h2>Inventario</h2>
+
+    <!-- Buscador -->
+    <div class="buscador-container">
+        <input type="text" placeholder="Buscar por nombre del producto" [(ngModel)]="filtro" (ngModelChange)="aplicarFiltro()" class="buscador" />
+        <button *ngIf="filtro" class="clear-button" (click)="filtro = ''">✖</button>
+    </div>
+
+    <!-- Tabla -->
+    <table class="tabla-productos">
+        <thead>
+            <tr>
+                <th>CODIGO</th>
+                <th>NOMBRE</th>
+                <th>CANTIDAD</th>
+                <th>FECHA ACTUALIZACIÓN</th>
+                <th *ngIf="!isEditor">ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of inventarioPaginado">
+                <td>{{ item.producto_id.codigo }}</td>
+                <td>{{ item.producto_id.nombre }}</td>
+                <td>{{ item.cantidad }}</td>
+                <td>{{ item.fecha_actualizacion | date: 'short' }}</td>
+                <td *ngIf="!isEditor" class="action">
+                    <button (click)="editar(item)">✏️</button>
+                    <button (click)="eliminarInventario(item.producto_id.idproduct)">🗑️</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Paginación -->
+    <div class="paginacion">
+        <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
+        <button *ngFor="let pagina of [].constructor(totalPaginas); let i = index" (click)="cambiarPagina(i + 1)"
+            [class.activa]="paginaActual === i + 1">
+            {{ i + 1 }}
+        </button>
+        <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+    </div>
+
+    <!-- Formulario de Inventario -->
+    <h2>{{ inventarioEditandoId ? 'Editar productos del inventario' : 'Añadir productos al inventario' }}</h2>
+
+    <form (ngSubmit)="inventarioEditandoId ? actualizar() : crearInventario(form)" #form="ngForm">
+        <label for="producto">Producto</label>
+        <input type="text" [(ngModel)]="productoBusqueda" (input)="buscarProducto()" name="producto"
+            placeholder="Buscar por código o nombre" autocomplete="off" />
+
+        <ul *ngIf="productosEncontrados.length > 0" class="sugerencias">
+            <li *ngFor="let prod of productosEncontrados" (click)="seleccionarProducto(prod)">
+                {{ prod.codigo }} - {{ prod.nombre }}
+            </li>
+        </ul>
+
+        <label for="cantidad">Cantidad</label>
+        <input type="number" [(ngModel)]="nuevoInventario.cantidad" name="cantidad" required />
+
+        <button type="submit">{{ inventarioEditandoId ? 'Actualizar' : 'Guardar' }}</button>
+        <button type="button" class="cancelar" *ngIf="inventarioEditandoId"
+            (click)="cancelarEdicion()">Cancelar</button>
+    </form>
+</div>

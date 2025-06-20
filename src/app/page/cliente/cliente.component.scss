@@ -1,7 +1,3 @@
-
-// ===========================
-// CONTENEDOR PRINCIPAL
-// ===========================
 div {
     display: block;
     max-width: 1000px;
@@ -13,18 +9,12 @@ div {
     font-family: 'Segoe UI', sans-serif;
 }
 
-// ===========================
-// ENCABEZADO
-// ===========================
 h2 {
     margin-bottom: 1rem;
     color: #333;
     font-size: 1.5rem;
 }
 
-// ===========================
-// FORMULARIO
-// ===========================
 form {
     display: grid;
     gap: 1rem;
@@ -70,9 +60,6 @@ form {
     }
 }
 
-// ===========================
-// LISTA DE ITEMS (si se usa ul/li)
-// ===========================
 ul {
     list-style: none;
     padding: 0;
@@ -94,18 +81,12 @@ ul {
         }
     }
 }
-
-// ===========================
-// TEXTO AUXILIAR
-// ===========================
+    
 p {
     color: #888;
     font-style: italic;
 }
 
-// ===========================
-// BUSCADOR
-// ===========================
 .buscador-container {
     position: relative;
     width: 100%;

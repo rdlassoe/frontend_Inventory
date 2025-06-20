@@ -4,12 +4,17 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { LoginComponent } from './page/login/login.component';
 import { ClienteComponent } from './page/cliente/cliente.component';
 import { EmpleadoComponent } from './page/empleado/empleado.component';
+import { InventarioComponent,  } from './page/inventario/inventario.component';
 
 
 export const routes: Routes = [
     {
         path: "dashboard",
         component: DashboardComponent
+    },
+    {
+        path: "inventario",
+        component: InventarioComponent
     },
     {
         path: "producto",
