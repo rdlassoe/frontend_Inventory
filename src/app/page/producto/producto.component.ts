@@ -27,8 +27,8 @@ export class ProductoComponent implements OnInit {
   mostrarModal = false;
   paginaActual: number = 1;
   productosPorPagina: number = 10;
-
   nuevoProducto: Partial<CreateProductDto> = {};
+  mostrarFormulario: boolean = false;
 
 
 
@@ -70,6 +70,21 @@ export class ProductoComponent implements OnInit {
 get isEditor(): boolean {
   return this.authService.getUserRole() === 'vendedor';
 }
+cancelarEdicion(form: NgForm) {
+    this.productoEditandoId = null;
+    this.nuevoProducto = {
+      codigo: '',
+      nombre: '',
+      descripcion: '',
+      categoria_id: 0,
+      cantMinima: 0,
+      costo: 0,
+      precio: 0,
+      iva: 0
+    };
+    form.resetForm({ categoria_id: 0 });
+    this.mostrarFormulario = false;
+  }
 
 
   crearProducto(form: NgForm) {
@@ -87,14 +102,16 @@ get isEditor(): boolean {
       this.productService.create(this.nuevoProducto).subscribe({
         next: () => {
           this.cargarProductos();
-          this.nuevoProducto = { categoria_id: 1 };
+          this.cancelarEdicion(form);
+          //
+          
           form.resetForm({ categoria_id: 0 });
         },
         error: (err) => console.error('Error al crear producto', err)
       });
     }
   }
-  editarProducto(producto: Product, form: NgForm) {
+  editarProducto(producto: Product, /*form: NgForm*/) {
     this.productoEditandoId = producto.idproduct;
 
     this.nuevoProducto = {
@@ -109,22 +126,10 @@ get isEditor(): boolean {
     };
 
     // Si quieres resetear el formulario visualmente
-    form.setValue(this.nuevoProducto);
+    this.mostrarFormulario = true;
+    //form.setValue(this.nuevoProducto);
   }
-  cancelarEdicion(form: NgForm) {
-    this.productoEditandoId = null;
-    this.nuevoProducto = {
-      codigo: '',
-      nombre: '',
-      descripcion: '',
-      categoria_id: 0,
-      cantMinima: 0,
-      costo: 0,
-      precio: 0,
-      iva: 0
-    };
-    form.resetForm({ categoria_id: 0 });
-  }
+  
   eliminarProducto(id: number) {
     if (confirm('¿Seguro que deseas eliminar este producto?')) {
       this.productService.remove(id).subscribe({

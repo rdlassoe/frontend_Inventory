@@ -24,6 +24,7 @@ export class EmpleadoComponent {
   empleadoEditandoId: number | null = null;
   paginaActual: number = 1;
   empleadosPorPagina: number = 10;
+  mostrarFormulario: boolean = false;
 
   // Solo el ID
   nuevoEmpleado: Partial<CreatePersonDto> = {
@@ -92,7 +93,7 @@ export class EmpleadoComponent {
     }
   }
 
-  editarEmpleado(cliente: Person, form: NgForm) {
+  editarEmpleado(cliente: Person) {
     this.empleadoEditandoId = cliente.idperson;
     this.nuevoEmpleado = {
       idperson: cliente.idperson,
@@ -104,8 +105,7 @@ export class EmpleadoComponent {
       tipo_id: cliente.tipo_id?.idtipo_identificacion, // solo el ID
       tipo_personaid: cliente.tipo_personaid?.idtype_person // solo el ID
     };
-
-    form.setValue(this.nuevoEmpleado);
+    this.mostrarFormulario = true;
   }
 
   cancelarEdicion(form: NgForm) {
@@ -114,6 +114,7 @@ export class EmpleadoComponent {
       tipo_personaid: 1 // Reset a tipo empleado por defecto
     };
     form.resetForm({ tipo_id: null });
+    this.mostrarFormulario = false;
   }
 
   eliminarEmpleado(id: number) {

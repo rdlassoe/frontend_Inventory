@@ -8,6 +8,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { HeaderComponent } from '../../components/header/header.component';
 import { Product } from '../../core/models/product.model';
 import { ProductService } from '../../core/services/product/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inventory',
@@ -21,24 +22,21 @@ export class InventarioComponent implements OnInit {
   inventarioFiltrado: Inventario[] = [];
   productoBusqueda: string = '';
   productosEncontrados: Product[] = [];
-  productoSeleccionado: Product | null = null;inventarioEditandoCodigo: string | null = null;
-
-
-
+  productoSeleccionado: Product | null = null; inventarioEditandoCodigo: string | null = null;
   // Estado del formulario
   nuevoInventario: CreateInventoryDto = { producto_id: 0, cantidad: 0 };
   inventarioEditandoId: number | null = null;
-
   // Buscador y paginación
   filtro: string = '';
   paginaActual: number = 1;
   elementosPorPagina: number = 10;
-  router: any;
+  mostrarFormulario: boolean = false;
 
 
   constructor(
     private inventoryService: InventarioService,
     private productService: ProductService,
+    private router: Router,
     private authService: AuthService
   ) { }
 
@@ -125,12 +123,14 @@ export class InventarioComponent implements OnInit {
       this.inventoryService.updateByCodigo(producto.codigo, dto).subscribe(() => {
         this.cargarInventario();
         this.limpiarFormulario(form);
+        this.mostrarFormulario = false;
       });
     } else {
       this.nuevoInventario.producto_id = producto.idproduct; // por si el backend lo requiere
       this.inventoryService.create(this.nuevoInventario).subscribe(() => {
         this.cargarInventario();
         this.limpiarFormulario(form);
+        this.mostrarFormulario = false;
       });
     }
   }
@@ -142,17 +142,48 @@ export class InventarioComponent implements OnInit {
     form.resetForm(form);
   }
 
-
-
-
-
   editar(item: Inventario): void {
     this.inventarioEditandoId = item.producto_id.idproduct;
+
     this.nuevoInventario = {
       producto_id: item.producto_id.idproduct,
       cantidad: item.cantidad,
     };
+
+    // Asignar el texto "codigo - nombre" al input del formulario
+    this.productoBusqueda = `${item.producto_id.codigo} - ${item.producto_id.nombre}`;
+
+    // Asignar el producto seleccionado completo por si se necesita luego
+    this.productoSeleccionado = {
+      ...item.producto_id,
+    };
+    this.mostrarFormulario = true;
   }
+
+  actualizarInventarioPorCodigo(): void {
+    const partes = this.productoBusqueda.split(' - ');
+    const codigo = partes[0]?.trim();
+
+    if (!codigo || this.nuevoInventario.cantidad <= 0) {
+      console.error('Código inválido o cantidad incorrecta');
+      return;
+    }
+
+    const dto: UpdateInventoryDto = {
+      cantidad: this.nuevoInventario.cantidad,
+    };
+
+    this.inventoryService.updateByCodigo(codigo, dto).subscribe({
+      next: () => {
+        this.cargarInventario();
+        this.cancelarEdicion(); // Por si se está editando
+      },
+      error: (err) => {
+        console.error('Error al actualizar inventario por código:', err);
+      },
+    });
+  }
+
 
   actualizar(): void {
     if (!this.inventarioEditandoId) return;
@@ -162,18 +193,17 @@ export class InventarioComponent implements OnInit {
     this.inventoryService.update(this.inventarioEditandoId, dto).subscribe(() => {
       this.cancelarEdicion();
       this.cargarInventario();
+      this.productoBusqueda = '';
+      this.productoSeleccionado = null;
     });
   }
 
   cancelarEdicion(): void {
     this.inventarioEditandoId = null;
     this.nuevoInventario = { producto_id: 0, cantidad: 0 };
-  }
-
-  eliminarInventario(productId: number): void {
-    this.inventoryService.delete(productId).subscribe(() => {
-      this.cargarInventario();
-    });
+    this.productoBusqueda = '';
+    this.productoSeleccionado = null;
+    this.mostrarFormulario = false;
   }
   buscarProducto(): void {
     if (this.productoBusqueda.length >= 2) {
