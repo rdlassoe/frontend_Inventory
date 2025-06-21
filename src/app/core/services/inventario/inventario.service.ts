@@ -16,9 +16,13 @@ export class InventarioService {
     return this.http.get<Inventario[]>(this.apiUrl);
   }
 
-  updateByCodigo(codigo: string, dto: UpdateInventoryDto) {
-  return this.http.put(`${this.apiUrl}/by-codigo/${codigo}`, dto);
-}
+  //   updateByCodigo(codigo: string, dto: UpdateInventoryDto) {
+  //   return this.http.put(`${this.apiUrl}/by-codigo/${codigo}`, dto);
+  // }
+
+  updateByCodigo(codigo: string, dto: UpdateInventoryDto): Observable<Inventario> {
+    return this.http.put<Inventario>(`${this.apiUrl}/by-codigo/${codigo}`, dto);
+  }
 
 
   getByProductId(productId: number): Observable<Inventario> {

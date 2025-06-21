@@ -24,6 +24,7 @@ export class ClienteComponent implements OnInit {
   clienteEditandoId: number | null = null;
   paginaActual: number = 1;
   clientesPorPagina: number = 10;
+  mostrarFormulario: boolean = false;
 
   // Solo el ID
   nuevoCliente: Partial<CreatePersonDto> = {
@@ -68,6 +69,7 @@ export class ClienteComponent implements OnInit {
         next: () => {
           this.cargarClientes();
           this.cancelarEdicion(form);
+          this.mostrarFormulario = true;
         },
         error: (err) => console.error('Error al actualizar cliente', err)
       });
@@ -84,7 +86,7 @@ export class ClienteComponent implements OnInit {
     }
   }
 
-  editarCliente(cliente: Person, form: NgForm) {
+  editarCliente(cliente: Person) {
     this.clienteEditandoId = cliente.idperson;
     this.nuevoCliente = {
       idperson: cliente.idperson,
@@ -96,8 +98,7 @@ export class ClienteComponent implements OnInit {
       tipo_id: cliente.tipo_id?.idtipo_identificacion, // solo el ID
       tipo_personaid: cliente.tipo_personaid?.idtype_person // solo el ID
     };
-
-    form.setValue(this.nuevoCliente);
+    this.mostrarFormulario = true;
   }
 
   cancelarEdicion(form: NgForm) {
@@ -106,6 +107,7 @@ export class ClienteComponent implements OnInit {
       tipo_personaid: 1 // Reset a tipo cliente por defecto
     };
     form.resetForm({ tipo_id: null });
+    this.mostrarFormulario = false;
   }
 
   eliminarCliente(id: number) {

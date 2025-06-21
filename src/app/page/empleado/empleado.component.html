@@ -18,7 +18,7 @@
                 <th>IDENTIFICACIÓN</th>
                 <th>CORREO</th>
                 <th>TELÉFONO</th>
-                <th *ngIf="!isEditor" >ACCIONES</th>
+                <th *ngIf="!isEditor">ACCIONES</th>
             </tr>
         </thead>
         <tbody>
@@ -30,8 +30,8 @@
                 <td>{{ emp.email }}</td>
                 <td>{{ emp.movil }}</td>
                 <td *ngIf="!isEditor" class="action">
-                    <button (click)="editarEmpleado(emp, form)">✏️</button>
-                    <button  (click)="eliminarEmpleado(emp.idperson)">🗑️</button>
+                    <button (click)="editarEmpleado(emp)">✏️</button>
+                    <button (click)="eliminarEmpleado(emp.idperson)">🗑️</button>
                 </td>
             </tr>
         </tbody>
@@ -46,34 +46,40 @@
         <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
     </div>
 
-    <h2>{{ empleadoEditandoId ? 'Editar Empleado' : 'Crear Empleado' }}</h2>
+    <button *ngIf="!mostrarFormulario" (click)="mostrarFormulario = true" class="button-crear">
+        ➕ Crear Empleado
+    </button>
+    <div *ngIf="mostrarFormulario">
+        <h2>{{ empleadoEditandoId ? 'Editar Empleado' : 'Crear Empleado' }}</h2>
 
-    <form (ngSubmit)="crearEmpleado(form)" #form="ngForm">
-        <label for="nombre">Nombre</label>
-        <input type="text" [(ngModel)]="nuevoEmpleado.nombre" name="nombre" required />
+        <form (ngSubmit)="crearEmpleado(form)" #form="ngForm">
+            <label for="nombre">Nombre</label>
+            <input type="text" [(ngModel)]="nuevoEmpleado.nombre" name="nombre" required />
 
-        <label for="apellido">Apellido</label>
-        <input type="text" [(ngModel)]="nuevoEmpleado.apellido" name="apellido" required />
+            <label for="apellido">Apellido</label>
+            <input type="text" [(ngModel)]="nuevoEmpleado.apellido" name="apellido" required />
 
-        <label for="tipo_id">Tipo de Identificación</label>
-        <select [(ngModel)]="nuevoEmpleado.tipo_id" name="tipo_id" required>
-            <option *ngFor="let tipo of tipoIdentificacion" [value]="tipo.idtipo_identificacion">
-                {{ tipo.descripcion }}
-            </option>
-        </select>
+            <label for="tipo_id">Tipo de Identificación</label>
+            <select [(ngModel)]="nuevoEmpleado.tipo_id" name="tipo_id" required>
+                <option *ngFor="let tipo of tipoIdentificacion" [value]="tipo.idtipo_identificacion">
+                    {{ tipo.descripcion }}
+                </option>
+            </select>
 
-        <label for="numero_identificacion">Número de Identificación</label>
-        <input type="text" [(ngModel)]="nuevoEmpleado.numero_identificacion" name="numero_identificacion" required />
+            <label for="numero_identificacion">Número de Identificación</label>
+            <input type="text" [(ngModel)]="nuevoEmpleado.numero_identificacion" name="numero_identificacion"
+                required />
 
-        <label for="email">Correo</label>
-        <input type="email" [(ngModel)]="nuevoEmpleado.email" name="email" />
+            <label for="email">Correo</label>
+            <input type="email" [(ngModel)]="nuevoEmpleado.email" name="email" />
 
-        <label for="movil">Teléfono / Móvil</label>
-        <input type="text" [(ngModel)]="nuevoEmpleado.movil" name="movil" />
+            <label for="movil">Teléfono / Móvil</label>
+            <input type="text" [(ngModel)]="nuevoEmpleado.movil" name="movil" />
 
-        <button type="submit">{{ empleadoEditandoId ? 'Actualizar' : 'Guardar' }}</button>
-        <button type="button" class="cancelar" *ngIf="empleadoEditandoId" (click)="cancelarEdicion(form)">
-            Cancelar
-        </button>
-    </form>
-</div>
+            <button type="submit">{{ empleadoEditandoId ? 'Actualizar' : 'Guardar' }}</button>
+            <button type="button" class="cancelar" (click)="cancelarEdicion(form)">
+                Cancelar
+            </button>
+        </form>
+    </div>
+    </div>

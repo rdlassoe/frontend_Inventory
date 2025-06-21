@@ -30,7 +30,7 @@
                 <td>{{ cli.email }}</td>
                 <td>{{ cli.movil }}</td>
                 <td class="action">
-                    <button (click)="editarCliente(cli, form)">✏️</button>
+                    <button (click)="editarCliente(cli)">✏️</button>
                     <button (click)="eliminarCliente(cli.idperson)">🗑️</button>
                 </td>
             </tr>
@@ -46,6 +46,10 @@
         <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
     </div>
 
+    <button *ngIf="!mostrarFormulario" (click)="mostrarFormulario = true" class="button-crear">
+        ➕ Crear cliente
+    </button>
+    <div *ngIf="mostrarFormulario">
     <h2>{{ clienteEditandoId ? 'Editar Cliente' : 'Crear Cliente' }}</h2>
 
     <form (ngSubmit)="crearCliente(form)" #form="ngForm">
@@ -73,7 +77,8 @@
 
         <!-- tipo_personaid se envía fijo como cliente -->
         <button type="submit">{{ clienteEditandoId ? 'Actualizar' : 'Guardar' }}</button>
-        <button type="button" class="cancelar" *ngIf="clienteEditandoId"
+        <button type="button" class="cancelar"
             (click)="cancelarEdicion(form)">Cancelar</button>
     </form>
+    </div>
 </div>
