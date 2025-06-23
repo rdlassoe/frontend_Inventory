@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Person } from '../../core/models/person.model';
+import { Person } from '../../core/models/persona.model';
 import { TipoIdentificacion } from '../../core/models/tipo-identificacion.model';
-import { CreatePersonDto } from '../../core/models/person.dto';
+import { CreatePersonDto } from '../../core/models/persona.dto';
 import { EmpleadoService } from '../../core/services/empleado/empleado.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { TipoIdentificacionService } from '../../core/services/tipoidentificacion/tipoidentificacion.service';
@@ -38,12 +38,18 @@ export class EmpleadoComponent {
     private router: Router
   ) { }
 
-  get isAdmin(): boolean {
-    return this.authService.getUserRole() === 'admin';
+  ngOnInit(): void {
+    if (!this.authService.isLoggedIn()) {
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    this.cargarEmpleados();
+    this.cargarTiposIdentificacion();
   }
 
-  get isEditor(): boolean {
-    return this.authService.getUserRole() === 'vendedor';
+  get isAdmin(): boolean {
+    return this.authService.getUserRole() === 'admin';
   }
 
   cargarEmpleados() {
@@ -60,15 +66,7 @@ export class EmpleadoComponent {
     });
   }
 
-  ngOnInit(): void {
-    if (!this.authService.isLoggedIn()) {
-      this.router.navigate(['/login']);
-      return;
-    }
-
-    this.cargarEmpleados();
-    this.cargarTiposIdentificacion();
-  }
+  
 
   crearEmpleado(form: NgForm) {
     if (this.empleadoEditandoId) {

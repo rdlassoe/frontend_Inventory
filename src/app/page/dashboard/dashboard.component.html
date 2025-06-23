@@ -4,7 +4,8 @@
 </div>
 
 <div *ngIf="!cargando && data">
-    <mat-grid-list cols="3" rowHeight="1:1" gutterSize="16px">
+    <mat-grid-list cols="3" rowHeight="1:0.4" gutterSize="16px">
+
         <mat-grid-tile colspan="1">
             <mat-card>
                 <mat-card-title>Total Productos</mat-card-title>
@@ -24,8 +25,8 @@
         </mat-grid-tile>
 
         <mat-grid-tile *ngIf="!isEditor" colspan="1">
-            <mat-card>
-                <mat-card-title>Ganancia Bruta (mes)</mat-card-title>
+            <mat-card class="card-success">
+                <mat-card-title >Ganancia Bruta (mes)</mat-card-title>
                 <mat-card-content>
                     <h2>{{ data.gananciaBruta | currency }}</h2>
                 </mat-card-content>
@@ -46,7 +47,7 @@
         </mat-grid-tile>
 
         <mat-grid-tile colspan="2">
-            <mat-card>
+            <mat-card mat-card class="card-warning">
                 <mat-card-title>Productos con Bajo Stock</mat-card-title>
                 <mat-card-content>
                     <mat-list>
@@ -75,7 +76,7 @@
         </mat-grid-tile>
 
         <mat-grid-tile>
-            <mat-card>
+            <mat-card mat-card class="card-danger">
                 <mat-card-title>Productos sin Stock</mat-card-title>
                 <mat-card-content>
                     <mat-list>
@@ -88,7 +89,7 @@
         </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-grid-list cols="2" rowHeight="1:1" gutterSize="16px" class="mt-4">
+    <mat-grid-list cols="2" rowHeight="1:1" gutterSize="16x" class="mt-4">
         <mat-grid-tile>
             <mat-card>
                 <mat-card-title>Ventas Recientes</mat-card-title>

@@ -1,4 +1,4 @@
-export interface LowStockProduct {
+export interface LowStockProductd {
     id: number;
     nombre: string;
     cantidad: number;
@@ -38,7 +38,7 @@ export interface DashboardData {
     ventasSemana: number;
     ventasMes: number;
     gananciaBruta: number;
-    productoBajoStock: LowStockProduct[];
+    productoBajoStock: LowStockProductd[];
     movimientosRecientes: RecentMovement[];
     ceroStockProducto: ZeroStockProduct[];
     ventasRecientes: RecentSale[];

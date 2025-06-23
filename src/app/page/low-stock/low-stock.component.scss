@@ -1,0 +1,94 @@
+// Estilo general del contenedor
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    color: #333;
+
+    h2 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .text-muted {
+        font-size: 0.95rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+        border-radius: 0.5rem;
+
+        i {
+            margin-right: 0.3rem;
+        }
+    }
+
+    hr {
+        margin-top: 1rem;
+        margin-bottom: 1.5rem;
+        border-top: 1px solid #ddd;
+    }
+
+    .card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+
+        .card-body {
+            padding: 1.5rem;
+        }
+    }
+
+    .table {
+        margin-bottom: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+
+        thead {
+            background-color: #ffffff;
+
+            th {
+                font-weight: 600;
+                font-size: 0.95rem;
+                padding: 0.75rem;
+                border-bottom: 2px solid #156bec;
+            }
+        }
+
+        tbody {
+            td {
+                padding: 0.75rem;
+                vertical-align: middle;
+
+                & strong {
+                    color: #156bec; // Resalta el stock bajo
+                }
+            }
+
+            tr:nth-child(even) {
+                background-color: #ffffff;
+            }
+
+            tr:nth-child(odd) {
+                background-color: #ffffff;
+            }
+
+            tr:hover {
+                background-color: #ffe8a1;
+                transition: background-color 0.2s ease-in-out;
+            }
+
+            .text-muted {
+                font-style: italic;
+            }
+
+            .text-center {
+                text-align: center;
+            }
+        }
+    }
+}

@@ -1,21 +1,50 @@
-<p>sidebar works!</p>
-
 <div class="overlay" (click)="onClose()"></div>
-
 <div class="sidebar">
     <button class="close-btn" (click)="onClose()">×</button>
     <ul>
         <li>
             <a (click)="onClose()" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
         </li>
-        <li>
-            <a (click)="onClose()" routerLink="/reportes" routerLinkActive="active">Reportes</a>
+
+        <li *ngIf="isAdmin" (mouseenter)="showSubmenu = true" (mouseleave)="showSubmenu = false">
+            <a (click)="onClose()
+            ">Reportes</a>
+            <ul class="submenu" *ngIf="showSubmenu">
+                <li >
+                    <a  (click)="onClose()" routerLink="/reportes/sales-summary">Resumen Ventas</a>
+                </li>
+                
+                <li>
+                    <a (click)="onClose()" routerLink="/reportes/top-products">Productos Mas Vendidos</a>
+                </li>
+                <li>
+                    <a (click)="onClose()" routerLink="/reportes/sales-by-category">Productos por categoria</a>
+                </li>
+                <li>
+                    <a (click)="onClose()" routerLink="/reportes/sales-comparison">Comparacion Ventas</a>
+                </li>
+                <li>
+                    <a (click)="onClose()" routerLink="/reportes/low-stock">Productos con bajo Stock
+                    </a>
+                </li>
+                <li>
+                    <a (click)="onClose()" routerLink="/reportes/valorized-inventory">Valor Total Inventario
+                    </a>
+                </li>
+                <li >
+                    <a class="download" (click)="descargarReporte()" (click)="onClose()">Descargar Reporte general</a>
+                </li>
+            </ul>
         </li>
+
         <li>
             <a (click)="onClose()" routerLink="/inventario" routerLinkActive="active">Inventario</a>
         </li>
         <li>
-            <a (click)="onClose()" routerLink="/ventas" routerLinkActive="active">Ventas</a>
+            <a (click)="onClose()" routerLink="/venta" routerLinkActive="active">Ventas</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/facturas" routerLinkActive="active">Facturas</a>
         </li>
         <li>
             <a (click)="onClose()" routerLink="/producto" routerLinkActive="active">Productos</a>
@@ -26,10 +55,10 @@
         <li>
             <a (click)="onClose()" routerLink="/empleado" routerLinkActive="active">Empleados</a>
         </li>
-        
     </ul>
+
     <div class="sidebar-footer">
-        <a  routerLink="/configuracion" class="footer-option">⚙ Configuración</a>
+        <a *ngIf="isAdmin" routerLink="/usuario" class="footer-option">⚙ Usuarios</a>
         <button class="footer-option logout" (click)="logout()">⎋ Cerrar sesión</button>
     </div>
 </div>

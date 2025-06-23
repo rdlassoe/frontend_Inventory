@@ -6,7 +6,7 @@ import { AuthService } from '../../core/services/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HeaderComponent } from '../../components/header/header.component';
-import { Product } from '../../core/models/product.model';
+import { Product } from '../../core/models/producto.model';
 import { ProductService } from '../../core/services/product/product.service';
 import { Router } from '@angular/router';
 

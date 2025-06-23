@@ -1,15 +1,3 @@
-// import { Component } from '@angular/core';
-// import { HeaderComponent } from '../../components/header/header.component';
-
-// @Component({
-//   selector: 'app-dashboard',
-//   imports: [HeaderComponent],
-//   templateUrl: './dashboard.component.html',
-//   styleUrl: './dashboard.component.scss'
-// })
-// export class DashboardComponent {
-
-// }
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../core/services/dashboard/dashboard.service';
 import { DashboardData } from '../../core/models/dashboard-data.model';
@@ -31,7 +19,7 @@ import { AuthService } from '../../core/services/auth/auth.service';
     MatGridListModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    MatListModule,],
+    MatListModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

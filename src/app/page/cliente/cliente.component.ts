@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CreatePersonDto } from '../../core/models/person.dto';
-import { Person } from '../../core/models/person.model';
+import { CreatePersonDto } from '../../core/models/persona.dto';
+import { Person } from '../../core/models/persona.model';
 import { TipoIdentificacion } from '../../core/models/tipo-identificacion.model';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { HeaderComponent } from '../../components/header/header.component';
@@ -69,7 +69,7 @@ export class ClienteComponent implements OnInit {
         next: () => {
           this.cargarClientes();
           this.cancelarEdicion(form);
-          this.mostrarFormulario = true;
+          this.mostrarFormulario = false;
         },
         error: (err) => console.error('Error al actualizar cliente', err)
       });

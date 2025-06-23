@@ -1,0 +1,60 @@
+<app-header></app-header>
+<div class="container mt-4">
+    <h2>Reporte: Comparativa de Ventas</h2>
+    <hr>
+    <form [formGroup]="reportForm" (ngSubmit)="generateReport()" class="card p-3 mb-4">
+        <div class="row">
+            <div class="col-md-6 border-end">
+                <h5>Periodo 1</h5>
+                <div class="mb-3">
+                    <label for="startDate1" class="form-label">Fecha de Inicio</label>
+                    <input type="date" id="startDate1" formControlName="startDate1" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="endDate1" class="form-label">Fecha de Fin</label>
+                    <input type="date" id="endDate1" formControlName="endDate1" class="form-control">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h5>Periodo 2</h5>
+                <div class="mb-3">
+                    <label for="startDate2" class="form-label">Fecha de Inicio</label>
+                    <input type="date" id="startDate2" formControlName="startDate2" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label for="endDate2" class="form-label">Fecha de Fin</label>
+                    <input type="date" id="endDate2" formControlName="endDate2" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="d-grid mt-3">
+            <button type="submit" class="btn btn-primary" [disabled]="isLoading || reportForm.invalid">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+                {{ isLoading ? 'Comparando...' : 'Comparar Periodos' }}
+            </button>
+        </div>
+    </form>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+    <div *ngIf="reportData && !isLoading" class="row mt-4">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header">Periodo 1: {{ reportData.periodo1.fechas }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total Vendido</h5>
+                    <p class="card-text fs-3">{{ reportData.periodo1.totalVendido | currency:'USD' }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header">Periodo 2: {{ reportData.periodo2.fechas }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total Vendido</h5>
+                    <p class="card-text fs-3">{{ reportData.periodo2.totalVendido | currency:'USD' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
