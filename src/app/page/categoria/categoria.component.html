@@ -1,0 +1,53 @@
+<app-header></app-header>
+
+<div>
+    <h2>Categorías</h2>
+
+    <div class="buscador-container">
+        <input type="text" placeholder="Buscar por descripción" [(ngModel)]="filtroCategoria" class="buscador" />
+        <button *ngIf="filtroCategoria" class="clear-button" (click)="filtroCategoria = ''">✖</button>
+    </div>
+
+    <table class="tabla-productos">
+        <thead>
+            <tr>
+                <th>DESCRIPCIÓN</th>
+                <th>ACCIONES</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let categoria of categoriasPaginadas">
+                <td>{{ categoria.descripcion_categoria }}</td>
+                <td class="action">
+                    <button (click)="editCategory(categoria)">✏️</button>
+                    <button *ngIf="isAdmin" (click)="deleteCategory(categoria.idcategoria)">🗑️</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="paginacion">
+        <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
+        <button *ngFor="let pagina of [].constructor(totalPaginas); let i = index" (click)="cambiarPagina(i + 1)"
+            [class.activa]="paginaActual === i + 1">
+            {{ i + 1 }}
+        </button>
+        <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+    </div>
+
+    <button *ngIf="!mostrarFormulario" (click)="mostrarFormulario = true" class="button-crear">
+        ➕ Crear categoría
+    </button>
+
+    <div *ngIf="mostrarFormulario">
+        <h2>{{ isEditing ? 'Editar Categoría' : 'Crear Categoría' }}</h2>
+
+        <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+            <label for="descripcion_categoria">Descripción</label>
+            <input type="text" formControlName="descripcion_categoria" name="descripcion_categoria" required />
+
+            <button type="submit">{{ isEditing ? 'Actualizar' : 'Guardar' }}</button>
+            <button type="button" class="cancelar" (click)="cancelarEdicion()">Cancelar</button>
+        </form>
+    </div>
+</div>

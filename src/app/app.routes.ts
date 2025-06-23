@@ -14,6 +14,7 @@ import { LowStockComponent } from './page/low-stock/low-stock.component';
 import { ValorizedInventoryComponent } from './page/valorized-inventory/valorized-inventory.component';
 import { FacturasComponent } from './page/facturas/facturas.component';
 import { UsuarioComponent } from './page/user/user.component';
+import { CategoriaComponent } from './page/categoria/categoria.component';
 
 export const routes: Routes = [
     {
@@ -59,6 +60,10 @@ export const routes: Routes = [
     {
         path: "producto",
         component: ProductoComponent
+    },
+    {
+        path: "categoria",
+        component: CategoriaComponent
     },
     {
         path: "cliente",

@@ -6,14 +6,36 @@
             <a (click)="onClose()" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
         </li>
 
+        <li>
+            <a (click)="onClose()" routerLink="/inventario" routerLinkActive="active">Inventario</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/venta" routerLinkActive="active">Ventas</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/facturas" routerLinkActive="active">Facturas</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/producto" routerLinkActive="active">Productos</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/categoria" routerLinkActive="active">Categoria</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/cliente" routerLinkActive="active">Clientes</a>
+        </li>
+        <li>
+            <a (click)="onClose()" routerLink="/empleado" routerLinkActive="active">Empleados</a>
+        </li>
+
         <li *ngIf="isAdmin" (mouseenter)="showSubmenu = true" (mouseleave)="showSubmenu = false">
             <a (click)="onClose()
             ">Reportes</a>
             <ul class="submenu" *ngIf="showSubmenu">
-                <li >
-                    <a  (click)="onClose()" routerLink="/reportes/sales-summary">Resumen Ventas</a>
+                <li>
+                    <a (click)="onClose()" routerLink="/reportes/sales-summary">Resumen Ventas</a>
                 </li>
-                
+
                 <li>
                     <a (click)="onClose()" routerLink="/reportes/top-products">Productos Mas Vendidos</a>
                 </li>
@@ -31,29 +53,10 @@
                     <a (click)="onClose()" routerLink="/reportes/valorized-inventory">Valor Total Inventario
                     </a>
                 </li>
-                <li >
+                <li>
                     <a class="download" (click)="descargarReporte()" (click)="onClose()">Descargar Reporte general</a>
                 </li>
             </ul>
-        </li>
-
-        <li>
-            <a (click)="onClose()" routerLink="/inventario" routerLinkActive="active">Inventario</a>
-        </li>
-        <li>
-            <a (click)="onClose()" routerLink="/venta" routerLinkActive="active">Ventas</a>
-        </li>
-        <li>
-            <a (click)="onClose()" routerLink="/facturas" routerLinkActive="active">Facturas</a>
-        </li>
-        <li>
-            <a (click)="onClose()" routerLink="/producto" routerLinkActive="active">Productos</a>
-        </li>
-        <li>
-            <a (click)="onClose()" routerLink="/cliente" routerLinkActive="active">Clientes</a>
-        </li>
-        <li>
-            <a (click)="onClose()" routerLink="/empleado" routerLinkActive="active">Empleados</a>
         </li>
     </ul>
 

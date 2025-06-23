@@ -1,6 +1,3 @@
-import { TipoIdentificacion } from "./tipo-identificacion.model";
-import { TypePerson } from "./type-person.model";
-
 export interface CreatePersonDto {
     idperson: number;
     nombre: string;

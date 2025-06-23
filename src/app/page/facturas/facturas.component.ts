@@ -47,7 +47,7 @@ export class FacturasComponent {
   }
 
   eliminar(id: number): void {
-    if (confirm('¿Eliminar esta venta?')) {
+    if (confirm('¿Estás seguro de que deseas eliminar esta factura? Esta acción no se puede deshacer.')) {
       this.ventaService.remove(id).subscribe(() => this.cargarVentas());
     }
   }
