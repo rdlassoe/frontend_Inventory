@@ -1,13 +1,18 @@
 <app-header></app-header>
 <div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center">
-        <h2>Reporte: Productos con Bajo Stock</h2>
-        <button class="btn btn-outline-secondary" (click)="loadData()" [disabled]="isLoading">
-            <i class="bi bi-arrow-clockwise"></i> Recargar
-        </button>
+    <div class="opciones">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Reporte: Productos con Bajo Stock</h2>
+
+            <button class="btn btn-outline-secondary" (click)="loadData()" [disabled]="isLoading">
+                <i class="bi bi-arrow-clockwise"></i> Recargar
+            </button>
+        </div>
+        <p class="text-muted">Muestra los productos cuya cantidad actual es menor o igual a su stock mínimo definido.
+        </p>
+        <hr>
+        <button class = "reporte" (click)="descargarReportel()">Descargar reporte</button>
     </div>
-    <p class="text-muted">Muestra los productos cuya cantidad actual es menor o igual a su stock mínimo definido.</p>
-    <hr>
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -32,9 +37,13 @@
                             <td colspan="3" class="text-center text-muted">¡Excelente! No hay productos con bajo stock.
                             </td>
                         </tr>
+                        
                     </tbody>
+                    
                 </table>
+                
             </div>
         </div>
+        
     </div>
 </div>

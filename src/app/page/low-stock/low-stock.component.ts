@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ReportsService } from '../../core/services/reportes/reportes.service';
+
 import { LowStockProduct } from '../../core/models/report-response.dto';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../components/header/header.component';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { ReportsService } from '../../core/services/reportes/reportes.service';
+import { ReportsPdfService } from '../../core/services/reports/reports.service';
 
 
 @Component({
@@ -21,6 +23,7 @@ export class LowStockComponent implements OnInit {
 
   constructor(
     private reportsService: ReportsService,
+    private reportsPdfService: ReportsPdfService,
     private authService: AuthService,
     private router: Router,
   ) {}
@@ -47,4 +50,21 @@ export class LowStockComponent implements OnInit {
       }
     });
   }
+  descargarReportel() {
+  const query = {
+    startDate: '2025-06-01',
+    endDate: '2025-06-21',
+    period: 'month',
+    limit: 10
+  };
+
+  this.reportsPdfService.descargarReportePdfL(query).subscribe(blob => {
+    const a = document.createElement('a');
+    const objectUrl = URL.createObjectURL(blob);
+    a.href = objectUrl;
+    a.download = 'stock-bajo-pdf';
+    a.click();
+    URL.revokeObjectURL(objectUrl);
+  });
+}
 }

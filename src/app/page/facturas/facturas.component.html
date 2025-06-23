@@ -60,9 +60,12 @@
         <div class="detalle-grid">
             <div><strong>Fecha:</strong> {{ ventaSeleccionada.fecha_hora | date:'dd/MM/yyyy HH:mm:ss' }}</div>
             <div><strong>Método de Pago:</strong> {{ ventaSeleccionada.metodo_pago.description }}</div>
-            <div><strong>Identificacion:</strong> {{ ventaSeleccionada.cliente.tipo_id.descripcion }} - {{ ventaSeleccionada.cliente.numero_identificacion }} </div>
-            <div><strong>Cliente:</strong> {{ ventaSeleccionada.cliente.nombre }} {{ ventaSeleccionada.cliente.apellido }}</div>
-            <div><strong>Vendido por:</strong> {{ ventaSeleccionada.empleado.nombre }}  {{ ventaSeleccionada.empleado.apellido }}</div>
+            <div><strong>Identificacion:</strong> {{ ventaSeleccionada.cliente.tipo_id.descripcion }} - {{
+                ventaSeleccionada.cliente.numero_identificacion }} </div>
+            <div><strong>Cliente:</strong> {{ ventaSeleccionada.cliente.nombre }} {{ ventaSeleccionada.cliente.apellido
+                }}</div>
+            <div><strong>Vendido por:</strong> {{ ventaSeleccionada.empleado.nombre }} {{
+                ventaSeleccionada.empleado.apellido }}</div>
         </div>
 
         <h4>Productos</h4>

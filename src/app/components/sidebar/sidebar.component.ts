@@ -3,7 +3,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { ReportsService } from '../../core/services/reports/reports.service';
+import { ReportsPdfService } from '../../core/services/reports/reports.service';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -19,7 +20,7 @@ export class SidebarComponent {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private reportsService: ReportsService,
+    private reportsPdfService: ReportsPdfService,
   ) { }
 
   ngOnInit(): void {
@@ -61,7 +62,7 @@ export class SidebarComponent {
     limit: 10
   };
 
-  this.reportsService.descargarReportePdf(query).subscribe(blob => {
+  this.reportsPdfService.descargarReportePdf(query).subscribe(blob => {
     const a = document.createElement('a');
     const objectUrl = URL.createObjectURL(blob);
     a.href = objectUrl;
