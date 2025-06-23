@@ -2,8 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Product } from '../../models/product.model';
-import { CreateProductDto } from '../../models/product.dto';
+import { Product } from '../../models/producto.model';
+import { CreateProductDto } from '../../models/producto.dto';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {

@@ -31,7 +31,7 @@
                 <td>{{ cli.movil }}</td>
                 <td class="action">
                     <button (click)="editarCliente(cli)">✏️</button>
-                    <button (click)="eliminarCliente(cli.idperson)">🗑️</button>
+                    <button *ngIf="isAdmin" (click)="eliminarCliente(cli.idperson)">🗑️</button>
                 </td>
             </tr>
         </tbody>

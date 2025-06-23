@@ -1,0 +1,62 @@
+<app-header></app-header>
+
+<div>
+    <h2>Usuarios</h2>
+
+    <table class="tabla-user">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Rol</th>
+                <th>Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of usuariosPaginados">
+                <td>{{ user.username }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.persona_id.nombre }} {{ user.persona_id.apellido }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="paginacion">
+        <button (click)="cambiarPagina(paginaActual - 1)" [disabled]="paginaActual === 1">Anterior</button>
+
+        <button *ngFor="let pagina of [].constructor(totalPaginas); let i = index" (click)="cambiarPagina(i + 1)"
+            [class.activa]="paginaActual === i + 1">
+            {{ i + 1 }}
+        </button>
+
+        <button (click)="cambiarPagina(paginaActual + 1)" [disabled]="paginaActual === totalPaginas">Siguiente</button>
+    </div>
+
+    <button *ngIf="!mostrarFormulario" (click)="mostrarFormulario = true" class="button-crear">
+        ➕ Crear usuario
+    </button>
+
+    <div *ngIf="mostrarFormulario">
+        <h2>Crear Usuario</h2>
+
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <label for="username">Usuario</label>
+            <input type="text" formControlName="username" id="username" placeholder="Usuario" required />
+
+            <label for="password">Contraseña</label>
+            <input type="password" formControlName="password" id="password" placeholder="Contraseña" required />
+
+            <label for="role">Rol</label>
+            <input type="text" formControlName="role" id="role" placeholder="Rol" required />
+
+            <label for="persona_id">Persona</label>
+            <select formControlName="persona_id" id="persona_id" required>
+                <option *ngFor="let person of persons" [value]="person.idperson">
+                    {{ person.nombre }} {{ person.apellido }}
+                </option>
+            </select>
+
+            <button type="submit">Guardar</button>
+            <button type="button" class="cancelar" (click)="mostrarFormulario = false">Cancelar</button>
+        </form>
+    </div>
+</div>

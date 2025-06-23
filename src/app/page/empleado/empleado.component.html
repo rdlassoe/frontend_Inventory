@@ -18,7 +18,7 @@
                 <th>IDENTIFICACIÓN</th>
                 <th>CORREO</th>
                 <th>TELÉFONO</th>
-                <th *ngIf="!isEditor">ACCIONES</th>
+                <th *ngIf="isAdmin" >ACCIONES</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +29,7 @@
                 <td>{{ emp.numero_identificacion }}</td>
                 <td>{{ emp.email }}</td>
                 <td>{{ emp.movil }}</td>
-                <td *ngIf="!isEditor" class="action">
+                <td *ngIf="isAdmin" class="action">
                     <button (click)="editarEmpleado(emp)">✏️</button>
                     <button (click)="eliminarEmpleado(emp.idperson)">🗑️</button>
                 </td>

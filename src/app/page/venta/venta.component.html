@@ -1,0 +1,82 @@
+<app-header></app-header>
+<div class="container">
+    <h2>Generar Venta</h2>
+
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="form-group cliente-search-container">
+            <label>Empleado:</label>
+            <input type="text" [value]="loggedInEmployeeName" disabled>
+            <label for="clienteBusqueda">Buscar Cliente:</label>
+            <input id="clienteBusqueda" type="text" [(ngModel)]="clienteBusqueda" (input)="buscarClientes()"
+                (keydown.enter)="seleccionarClienteConEnter(); $event.preventDefault()"
+                [ngModelOptions]="{standalone: true}" placeholder="Nombre, apellido o identificación"
+                autocomplete="off">
+            <ul *ngIf="clientesFiltrados.length > 0" class="search-results">
+                <li *ngFor="let c of clientesFiltrados" (click)="seleccionarCliente(c)">
+                    {{ c.nombre }} {{ c.apellido }} - {{ c.numero_identificacion }}
+                </li>
+            </ul>
+            <label>Método de Pago:</label>
+            <select formControlName="metodo_pago_id" required>
+                <option [ngValue]="null" disabled>Seleccione un método de pago</option>
+                <option *ngFor="let m of metodoPago" [value]="m.idpayment_method">{{ m.description }}</option>
+            </select>
+        </div>
+
+
+        <hr>
+
+
+        <div class="form-group producto-search-container">
+            <h3>Productos</h3>
+            <label for="productoBusqueda">Buscar Producto:</label>
+            <input id="productoBusqueda" type="text" [(ngModel)]="productoBusqueda" (input)="buscarProductos()"
+                (keydown.enter)="seleccionarProductoPorEnter(); $event.preventDefault()"
+                [ngModelOptions]="{standalone: true}" placeholder="Buscar por código o nombre..." autocomplete="off" />
+            <ul *ngIf="productosFiltrados.length > 0" class="search-results">
+                <li *ngFor="let p of productosFiltrados" (click)="addProductoDesdeBusqueda(p)">
+                    {{ p.codigo }} - {{ p.nombre }} ({{ p.precio | currency }})
+                </li>
+            </ul>
+        </div>
+
+        <div formArrayName="productos" class="productos-list">
+            <div class="productos-header" *ngIf="productos.controls.length > 0">
+                <span>Producto</span>
+                <span>Precio Unit.</span>
+                <span>Cantidad</span>
+                <span>Subtotal</span>
+                <span>Acción</span>
+            </div>
+
+            <div *ngFor="let prodControl of productos.controls; let i = index" [formGroupName]="i"
+                class="producto-item">
+                <span>{{ prodControl.value.codigo }} - {{ prodControl.value.nombre }}</span>
+                <span>{{ prodControl.value.precio | currency }}</span>
+
+                <input type="number" formControlName="cantidad" min="1" class="cantidad-input" />
+
+                <span>{{ calcularSubtotal(prodControl) | currency }}</span>
+
+                <button type="button" (click)="eliminarProducto(i)" class="delete-btn">❌</button>
+            </div>
+
+            <div *ngIf="productos.controls.length === 0" class="empty-cart-message">
+                Aún no has añadido productos a la venta.
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="venta-total">
+            <h4>Total: {{ calcularTotal() | currency }}</h4>
+            <button type="submit" [disabled]="form.invalid || productos.length === 0">Registrar Venta(F10)</button>
+        </div>
+
+        <div *ngIf="submissionError" class="submission-error">
+            <strong>Error:</strong> {{ submissionError }}
+        </div>
+    </form>
+</div>

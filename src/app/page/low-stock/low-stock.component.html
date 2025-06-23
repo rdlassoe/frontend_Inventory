@@ -1,0 +1,40 @@
+<app-header></app-header>
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Reporte: Productos con Bajo Stock</h2>
+        <button class="btn btn-outline-secondary" (click)="loadData()" [disabled]="isLoading">
+            <i class="bi bi-arrow-clockwise"></i> Recargar
+        </button>
+    </div>
+    <p class="text-muted">Muestra los productos cuya cantidad actual es menor o igual a su stock mínimo definido.</p>
+    <hr>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-warning table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Producto</th>
+                            <th scope="col">Stock Actual</th>
+                            <th scope="col">Stock Mínimo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngIf="isLoading">
+                            <td colspan="3" class="text-center">Cargando...</td>
+                        </tr>
+                        <tr *ngFor="let item of reportData">
+                            <td>{{ item.producto_id.nombre }}</td>
+                            <td><strong>{{ item.cantidad }}</strong></td>
+                            <td>{{ item.producto_id.cantMinima }}</td>
+                        </tr>
+                        <tr *ngIf="!isLoading && reportData.length === 0">
+                            <td colspan="3" class="text-center text-muted">¡Excelente! No hay productos con bajo stock.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

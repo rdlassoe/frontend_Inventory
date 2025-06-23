@@ -1,23 +1,3 @@
-// import { HttpClient } from '@angular/common/http';
-// import { Injectable } from '@angular/core';
-// import { Observable } from 'rxjs';
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthService {
-//   private baseUrl = 'http://localhost:3000/auth';
-
-//   constructor(private http: HttpClient) {}
-
-//   login(username: string, password: string): Observable<any> {
-//     return this.http.post(`${this.baseUrl}/login`, { username, password });
-//   }
-
-//   getProfile(): Observable<any> {
-//     return this.http.get(`${this.baseUrl}/profile`);
-//   }
-
-// }
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
@@ -69,5 +49,12 @@ export class AuthService {
 
   getUsername(): string | null {
     return this.getDecodedToken()?.username || null;
+  }
+
+  // --- NUEVO MÉTODO ---
+  // Obtiene el ID de la persona directamente desde el payload del token.
+  getPersonaId(): number | null {
+    const userID = this.getDecodedToken()?.sub;
+    return userID ? Number(userID) : null;
   }
 }

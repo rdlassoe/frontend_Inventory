@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CreatePersonDto } from '../../models/person.dto';
-import { Person } from '../../models/person.model';
+import { CreatePersonDto } from '../../models/persona.dto';
+import { Person } from '../../models/persona.model';
 import { Observable, map } from 'rxjs';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class ClienteService {
   findAllClientes(): Observable<Person[]> {
     return this.http.get<Person[]>(this.apiUrl).pipe(
       map((personas) =>
-        personas.filter(p => p.tipo_personaid?.idtype_person === 1)
+        personas.filter(p => p.tipo_personaid?.idtype_person === 2)
       )
     );
   }

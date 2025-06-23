@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Product } from '../../core/models/product.model';
-import { Category } from '../../core/models/category.model';
+import { Product } from '../../core/models/producto.model';
+import { Category } from '../../core/models/categoria.model';
 import { ProductService } from '../../core/services/product/product.service';
 import { CategoryService } from '../../core/services/category/category.service';
-import { CreateProductDto } from '../../core/models/product.dto';
+import { CreateProductDto } from '../../core/models/producto.dto';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { HeaderComponent } from '../../components/header/header.component';
