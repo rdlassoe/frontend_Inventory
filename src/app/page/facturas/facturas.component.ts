@@ -91,4 +91,26 @@ export class FacturasComponent {
     if (pagina < 1 || pagina > this.totalPaginas) return;
     this.paginaActual = pagina;
   }
+
+  descargarFactura(idVenta: number) {
+    this.ventaService.descargarFactura(idVenta).subscribe({
+      next: (pdfBlob) => {
+        const blob = new Blob([pdfBlob], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `factura_venta_${idVenta}.pdf`;
+        link.click();
+
+        // Liberar la URL creada
+        window.URL.revokeObjectURL(url);
+      },
+      error: (err) => {
+        console.error('Error al descargar factura', err);
+        alert('Ocurrió un error al generar la factura.');
+      }
+    });
+  }
+
 }

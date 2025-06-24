@@ -26,6 +26,8 @@
                 <td class="acciones">
                     <button class="btn-ver" (click)="ver(venta.idsale)"> 👁️ </button>
                     <button *ngIf="isAdmin" class="btn-eliminar" (click)="eliminar(venta.idsale)"> 🗑️ </button>
+                    <button class="btn-descargar" (click)="descargarFactura(venta.idsale)"
+                        title="Descargar Factura PDF">📄</button>
                 </td>
             </tr>
             <tr *ngIf="ventasFiltradas.length === 0">
@@ -91,6 +93,9 @@
         <div class="total-final">
             <strong>Total Factura: {{ ventaSeleccionada.total | currency:'USD':'symbol':'1.2-2' }}</strong>
         </div>
+        <!-- <div class="boton-descargar-factura">
+            <button (click)="descargarFactura(ventaSeleccionada.idsale)">📄 Descargar Factura PDF</button>
+        </div> -->
 
     </div>
 </div>
