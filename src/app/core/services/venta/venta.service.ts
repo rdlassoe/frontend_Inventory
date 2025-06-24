@@ -69,4 +69,11 @@ export class ventaService {
   remove(id: number): Observable<venta> {
     return this.http.delete<venta>(`${this.apiUrl}/${id}`);
   }
+
+  descargarFactura(idVenta: number) {
+    return this.http.get(`${this.apiUrl}/factura/${idVenta}`, {
+      responseType: 'blob', // ¡Esto es importante para recibir el PDF como archivo!
+    });
+  }
+
 }
